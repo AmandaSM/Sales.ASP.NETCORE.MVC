@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SaleWebMvc.Models;
+using SaleWebMvc.Models.ViewMoldels;
 
 namespace SaleWebMvc.Controllers
 {
