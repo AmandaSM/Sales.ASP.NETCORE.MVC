@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SaleWebMvc.Models;
 using SaleWebMvc.Models.ViewMoldels;
+using ErrorViewModel = SaleWebMvc.Models.ViewMoldels.ErrorViewModel;
 
 namespace SaleWebMvc.Controllers
 {
