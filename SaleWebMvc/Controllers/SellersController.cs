@@ -15,11 +15,13 @@ namespace SaleWebMvc.Controllers
             _sellerService = sellerService;
             _departmentService = departmentService;
         }
+
         public IActionResult Index()
         {
             var list = _sellerService.FindAll();
             return View(list);
         }
+
         public IActionResult Create()
         {
             var departments = _departmentService.FindAll();//Buscando lista de derpartamento
@@ -37,6 +39,7 @@ namespace SaleWebMvc.Controllers
             return RedirectToAction(nameof(Index));
             //name of->se mudar o nome do index n precisa mudar aqui
         }
+
         public IActionResult Delete(int? id)
         {//?->opcional->nullable
             if (id==null)
@@ -51,12 +54,29 @@ namespace SaleWebMvc.Controllers
             }
             return View(obj);
         }
+
         [ValidateAntiForgeryToken]
         [HttpPost]
         public IActionResult Delete(int id)
         {
             _sellerService.Remove(id);
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var obj = _sellerService.FindById(id.Value);
+
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            return View(obj);
         }
     }
 }
