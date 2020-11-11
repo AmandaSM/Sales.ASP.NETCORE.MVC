@@ -2,6 +2,7 @@
 using SaleWebMvc.Models;
 using SaleWebMvc.Models.ViewMoldels;
 using SaleWebMvc.Services;
+using SaleWebMvc.Services.Exceptions;
 using SaleWebMvc.Views.Sellers.Exceptions;
 using System;
 using System.Collections.Generic;
@@ -73,8 +74,16 @@ namespace SaleWebMvc.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
-           await _sellerService.RemoveAsync(id);
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                await _sellerService.RemoveAsync(id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (IntegrityException e)
+            {//caso o ususario tente excluir um vendendor que possui venda
+                return RedirectToAction(nameof(Error), new { message = e.Message});
+            }
+        
         }
 
         public async Task <IActionResult> Details(int? id)
